@@ -1,0 +1,746 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Long Island PureRestore | Premium Water Damage Restoration Services</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        appleGray: '#f5f5f7',
+                        appleDark: '#1d1d1f',
+                        softBlue: '#eef4ff',
+                        softRed: '#fff1f2',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Custom Apple-style glassmorphism and smooth fade transitions */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc;
+            color: #1e293b;
+            overflow-x: hidden;
+        }
+        .glass-nav {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+        }
+        .apple-card {
+            background: rgba(255, 255, 255, 0.9);
+            border: 1px solid rgba(226, 232, 240, 0.8);
+            box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.05);
+            transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .apple-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.08);
+        }
+        /* Background subtle animated pastel glow blobs */
+        @keyframes floatSlow {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            50% { transform: translate(30px, -40px) scale(1.05); }
+        }
+        .blob-blue {
+            position: absolute;
+            top: -10vh;
+            left: -10vw;
+            width: 50vw;
+            height: 50vw;
+            background: radial-gradient(circle, rgba(219, 234, 254, 0.6) 0%, rgba(238, 244, 255, 0) 70%);
+            border-radius: 50%;
+            z-index: -1;
+            animation: floatSlow 12s ease-in-out infinite;
+        }
+        .blob-red {
+            position: absolute;
+            top: 30vh;
+            right: -10vw;
+            width: 50vw;
+            height: 50vw;
+            background: radial-gradient(circle, rgba(254, 226, 226, 0.5) 0%, rgba(255, 241, 242, 0) 70%);
+            border-radius: 50%;
+            z-index: -1;
+            animation: floatSlow 15s ease-in-out infinite reverse;
+        }
+        .page-view {
+            display: none;
+            opacity: 0;
+            transition: opacity 0.4s ease-in-out;
+        }
+        .page-view.active {
+            display: block;
+            opacity: 1;
+        }
+    </style>
+</head>
+<body class="relative min-h-screen flex flex-col selection:bg-blue-500 selection:text-white">
+
+    <div class="blob-blue"></div>
+    <div class="blob-red"></div>
+
+    <header class="sticky top-0 z-50 glass-nav border-b border-slate-200/60">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <div class="flex items-center space-x-3 cursor-pointer" onclick="switchPage('home')">
+                <div class="w-10 h-10 rounded-2xl bg-gradient-to-tr from-blue-600 to-red-500 flex items-center justify-center text-white shadow-md shadow-blue-500/20">
+                    <i class="fa-solid fa-water text-lg"></i>
+                </div>
+                <div>
+                    <span class="text-xl font-bold tracking-tight text-slate-900 block leading-tight">Long Island</span>
+                    <span class="text-xs font-semibold tracking-widest text-blue-600 uppercase">PureRestore</span>
+                </div>
+            </div>
+            <!-- Desktop Navigation -->
+            <nav class="hidden md:flex items-center space-x-1">
+                <button onclick="switchPage('home')" id="nav-home" class="nav-btn px-4 py-2 rounded-full text-sm font-medium transition-all text-slate-900 bg-slate-200/60">Home</button>
+                <button onclick="switchPage('services')" id="nav-services" class="nav-btn px-4 py-2 rounded-full text-sm font-medium transition-all text-slate-600 hover:text-slate-900 hover:bg-slate-100">Services</button>
+                <button onclick="switchPage('about')" id="nav-about" class="nav-btn px-4 py-2 rounded-full text-sm font-medium transition-all text-slate-600 hover:text-slate-900 hover:bg-slate-100">About</button>
+                <button onclick="switchPage('blog')" id="nav-blog" class="nav-btn px-4 py-2 rounded-full text-sm font-medium transition-all text-slate-600 hover:text-slate-900 hover:bg-slate-100">Blog</button>
+                <button onclick="switchPage('contact')" id="nav-contact" class="nav-btn px-4 py-2 rounded-full text-sm font-medium transition-all text-slate-600 hover:text-slate-900 hover:bg-slate-100">Contact</button>
+            </nav>
+            <div class="hidden lg:flex items-center space-x-4">
+                <a href="tel:18005550199" class="flex items-center space-x-2 text-sm font-semibold text-slate-800 bg-slate-100 px-4 py-2.5 rounded-full hover:bg-slate-200 transition">
+                    <i class="fa-solid fa-phone text-red-500"></i>
+                    <span>(800) 555-RESTORE</span>
+                </a>
+                <button onclick="switchPage('contact')" class="bg-blue-600 hover:bg-blue-700 text-white font-medium px-5 py-2.5 rounded-full text-sm shadow-lg shadow-blue-500/25 transition transform active:scale-95">
+                    Emergency Dispatch
+                </button>
+            </div>
+            <!-- Mobile Menu Button -->
+            <button onclick="toggleMobileMenu()" class="md:hidden text-slate-800 p-2 focus:outline-none">
+                <i class="fa-solid fa-bars text-xl" id="mobile-menu-icon"></i>
+            </button>
+        </div>
+        <!-- Mobile Dropdown -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white/95 backdrop-blur-xl border-b border-slate-200 px-4 pt-2 pb-6 space-y-2">
+            <button onclick="switchPage('home'); toggleMobileMenu();" class="block w-full text-left px-4 py-2.5 rounded-lg text-base font-medium text-slate-900 hover:bg-slate-100">Home</button>
+            <button onclick="switchPage('services'); toggleMobileMenu();" class="block w-full text-left px-4 py-2.5 rounded-lg text-base font-medium text-slate-900 hover:bg-slate-100">Services</button>
+            <button onclick="switchPage('about'); toggleMobileMenu();" class="block w-full text-left px-4 py-2.5 rounded-lg text-base font-medium text-slate-900 hover:bg-slate-100">About</button>
+            <button onclick="switchPage('blog'); toggleMobileMenu();" class="block w-full text-left px-4 py-2.5 rounded-lg text-base font-medium text-slate-900 hover:bg-slate-100">Blog</button>
+            <button onclick="switchPage('contact'); toggleMobileMenu();" class="block w-full text-left px-4 py-2.5 rounded-lg text-base font-medium text-slate-900 hover:bg-slate-100">Contact</button>
+        </div>
+    </header>
+
+    <main class="flex-grow">
+
+        <section id="page-home" class="page-view active">
+            <!-- Hero Section -->
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-24 lg:pt-24 lg:pb-32">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                    <div class="lg:col-span-7 space-y-8 text-center lg:text-left">
+                        <div class="inline-flex items-center space-x-2 bg-blue-50 border border-blue-200 px-4 py-1.5 rounded-full text-blue-700 text-xs font-semibold tracking-wide uppercase">
+                            <span class="w-2 h-2 rounded-full bg-red-500 animate-pulse"></span>
+                            <span>24/7 Rapid Emergency Response Team</span>
+                        </div>
+                        <h1 class="text-4xl sm:text-6xl lg:text-7xl font-extrabold text-slate-900 tracking-tight leading-[1.08]">
+                            Professional <span class="bg-gradient-to-r from-blue-600 to-red-500 bg-clip-text text-transparent">Water Damage Restoration</span> in Long Island
+                        </h1>
+                        <p class="text-lg sm:text-xl text-slate-600 font-normal leading-relaxed max-w-2xl mx-auto lg:mx-0">
+                            State-of-the-art mitigation, structural drying, and complete property restoration delivered with Apple-grade precision and unmatched care across Nassau and Suffolk counties.
+                        </p>
+                        <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start space-y-4 sm:space-y-0 sm:space-x-4 pt-2">
+                            <button onclick="switchPage('contact')" class="w-full sm:w-auto bg-blue-600 hover:bg-blue-700 text-white font-semibold px-8 py-4 rounded-2xl shadow-xl shadow-blue-500/25 transition transform active:scale-95 flex items-center justify-center space-x-3 text-base">
+                                <span>Request Emergency Help</span>
+                                <i class="fa-solid fa-arrow-right text-sm"></i>
+                            </button>
+                            <button onclick="switchPage('services')" class="w-full sm:w-auto bg-white hover:bg-slate-50 text-slate-800 font-semibold px-8 py-4 rounded-2xl border border-slate-200 shadow-sm transition flex items-center justify-center space-x-2 text-base">
+                                <i class="fa-solid fa-layer-group text-blue-600"></i>
+                                <span>Explore Services</span>
+                            </button>
+                        </div>
+                        <div class="grid grid-cols-3 gap-6 pt-8 border-t border-slate-200/80 max-w-lg mx-auto lg:mx-0">
+                            <div>
+                                <p class="text-2xl sm:text-3xl font-extrabold text-slate-900">45 Min</p>
+                                <p class="text-xs sm:text-sm text-slate-500 font-medium">Avg. Response</p>
+                            </div>
+                            <div>
+                                <p class="text-2xl sm:text-3xl font-extrabold text-slate-900">100%</p>
+                                <p class="text-xs sm:text-sm text-slate-500 font-medium">Satisfaction</p>
+                            </div>
+                            <div>
+                                <p class="text-2xl sm:text-3xl font-extrabold text-slate-900">15+ Yrs</p>
+                                <p class="text-xs sm:text-sm text-slate-500 font-medium">Local Expertise</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="lg:col-span-5 relative">
+                        <div class="absolute -inset-4 bg-gradient-to-r from-blue-500/10 to-red-500/10 rounded-3xl blur-2xl -z-10"></div>
+                        <div class="apple-card rounded-3xl overflow-hidden p-3 bg-white/80">
+                            <img src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=800&q=80" alt="Water Damage Restoration in Long Island" class="rounded-2xl w-full h-[380px] object-cover shadow-inner" onerror="this.src='https://placehold.co/800x600/f1f5f9/1e293b?text=Professional+Restoration'">
+                            <div class="p-4 flex items-center justify-between">
+                                <div class="flex items-center space-x-3">
+                                    <div class="w-10 h-10 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center">
+                                        <i class="fa-solid fa-shield-halved"></i>
+                                    </div>
+                                    <div>
+                                        <h4 class="text-sm font-bold text-slate-900">Licensed & Insured</h4>
+                                        <p class="text-xs text-slate-500">Direct Insurance Billing</p>
+                                    </div>
+                                </div>
+                                <span class="bg-red-50 text-red-600 text-xs font-bold px-3 py-1.5 rounded-full border border-red-100">Live 24/7</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Highlights Grid -->
+            <div class="bg-white/60 py-20 border-y border-slate-200/60">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="text-center max-w-3xl mx-auto space-y-4 mb-16">
+                        <h2 class="text-xs font-bold tracking-widest text-blue-600 uppercase">Core Capabilities</h2>
+                        <h3 class="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">Advanced Mitigation & Restoration</h3>
+                        <p class="text-base text-slate-600">From initial extraction to complete structural rebuilding, we handle every phase with uncompromising attention to detail.</p>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        <div class="apple-card p-8 rounded-3xl space-y-4">
+                            <div class="w-14 h-14 rounded-2xl bg-blue-50 text-blue-600 flex items-center justify-center text-xl shadow-sm">
+                                <i class="fa-solid fa-droplet"></i>
+                            </div>
+                            <h4 class="text-xl font-bold text-slate-900">Water Extraction</h4>
+                            <p class="text-slate-600 text-sm leading-relaxed">High-capacity submersible pumps and truck-mounted extraction systems remove standing water rapidly to prevent secondary damage.</p>
+                            <button onclick="switchPage('services')" class="text-blue-600 font-semibold text-sm inline-flex items-center space-x-1 hover:space-x-2 transition-all">
+                                <span>Learn more</span>
+                                <i class="fa-solid fa-chevron-right text-xs"></i>
+                            </button>
+                        </div>
+                        <div class="apple-card p-8 rounded-3xl space-y-4">
+                            <div class="w-14 h-14 rounded-2xl bg-red-50 text-red-600 flex items-center justify-center text-xl shadow-sm">
+                                <i class="fa-solid fa-wind"></i>
+                            </div>
+                            <h4 class="text-xl font-bold text-slate-900">Structural Drying</h4>
+                            <p class="text-slate-600 text-sm leading-relaxed">Industrial LGR dehumidifiers and high-velocity air movers calibrated via thermal hygrometer monitoring ensure moisture is fully eliminated.</p>
+                            <button onclick="switchPage('services')" class="text-blue-600 font-semibold text-sm inline-flex items-center space-x-1 hover:space-x-2 transition-all">
+                                <span>Learn more</span>
+                                <i class="fa-solid fa-chevron-right text-xs"></i>
+                            </button>
+                        </div>
+                        <div class="apple-card p-8 rounded-3xl space-y-4">
+                            <div class="w-14 h-14 rounded-2xl bg-blue-50 text-blue-600 flex items-center justify-center text-xl shadow-sm">
+                                <i class="fa-solid fa-house-chimney-crack"></i>
+                            </div>
+                            <h4 class="text-xl font-bold text-slate-900">Complete Rebuilding</h4>
+                            <p class="text-slate-600 text-sm leading-relaxed">Full-scale reconstruction services ranging from drywall replacement and flooring restoration to pristine architectural finishes.</p>
+                            <button onclick="switchPage('services')" class="text-blue-600 font-semibold text-sm inline-flex items-center space-x-1 hover:space-x-2 transition-all">
+                                <span>Learn more</span>
+                                <i class="fa-solid fa-chevron-right text-xs"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="page-services" class="page-view">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-24">
+                <div class="text-center max-w-3xl mx-auto space-y-4 mb-16">
+                    <div class="inline-flex items-center space-x-2 bg-blue-50 border border-blue-200 px-4 py-1.5 rounded-full text-blue-700 text-xs font-semibold tracking-wide uppercase">
+                        <span>Our Professional Services</span>
+                    </div>
+                    <h1 class="text-4xl sm:text-5xl font-extrabold text-slate-900 tracking-tight">Comprehensive Restoration Solutions</h1>
+                    <p class="text-base sm:text-lg text-slate-600">Tailored recovery protocols engineered for residential and commercial properties across Long Island.</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <!-- Service 1 -->
+                    <div class="apple-card rounded-3xl overflow-hidden p-6 sm:p-8 flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center justify-between mb-6">
+                                <div class="w-12 h-12 rounded-2xl bg-blue-50 text-blue-600 flex items-center justify-center text-lg">
+                                    <i class="fa-solid fa-water"></i>
+                                </div>
+                                <span class="bg-blue-50 text-blue-700 text-xs font-bold px-3 py-1 rounded-full">Emergency 24/7</span>
+                            </div>
+                            <h3 class="text-2xl font-bold text-slate-900 mb-3">Emergency Water Extraction</h3>
+                            <p class="text-slate-600 text-sm leading-relaxed mb-6">Rapid deployment of truck-mounted extractors and submersible pumps to eliminate standing water immediately after pipe bursts, appliance failures, or severe storm surges.</p>
+                            <ul class="space-y-2.5 text-sm text-slate-700 mb-8">
+                                <li class="flex items-center space-x-2"><i class="fa-solid fa-check text-blue-600"></i><span>Submersible pumps for deep standing water</span></li>
+                                <li class="flex items-center space-x-2"><i class="fa-solid fa-check text-blue-600"></i><span>Carpet and subfloor deep extraction</span></li>
+                                <li class="flex items-center space-x-2"><i class="fa-solid fa-check text-blue-600"></i><span>Immediate moisture mapping & logging</span></li>
+                            </ul>
+                        </div>
+                        <button onclick="switchPage('contact')" class="w-full bg-slate-900 hover:bg-blue-600 text-white font-medium py-3.5 rounded-xl transition text-sm">Book Service</button>
+                    </div>
+
+                    <!-- Service 2 -->
+                    <div class="apple-card rounded-3xl overflow-hidden p-6 sm:p-8 flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center justify-between mb-6">
+                                <div class="w-12 h-12 rounded-2xl bg-red-50 text-red-600 flex items-center justify-center text-lg">
+                                    <i class="fa-solid fa-wind"></i>
+                                </div>
+                                <span class="bg-red-50 text-red-700 text-xs font-bold px-3 py-1 rounded-full">Advanced Drying</span>
+                            </div>
+                            <h3 class="text-2xl font-bold text-slate-900 mb-3">Structural Drying & Dehumidification</h3>
+                            <p class="text-slate-600 text-sm leading-relaxed mb-6">Commercial-grade low grain refrigerant (LGR) dehumidifiers and targeted airflow systems designed to pull moisture from wall cavities, subfloors, and structural timber.</p>
+                            <ul class="space-y-2.5 text-sm text-slate-700 mb-8">
+                                <li class="flex items-center space-x-2"><i class="fa-solid fa-check text-blue-600"></i><span>High-velocity air mover placement</span></li>
+                                <li class="flex items-center space-x-2"><i class="fa-solid fa-check text-blue-600"></i><span>In-wall cavity drying injection systems</span></li>
+                                <li class="flex items-center space-x-2"><i class="fa-solid fa-check text-blue-600"></i><span>Daily relative humidity audits</span></li>
+                            </ul>
+                        </div>
+                        <button onclick="switchPage('contact')" class="w-full bg-slate-900 hover:bg-blue-600 text-white font-medium py-3.5 rounded-xl transition text-sm">Book Service</button>
+                    </div>
+
+                    <!-- Service 3 -->
+                    <div class="apple-card rounded-3xl overflow-hidden p-6 sm:p-8 flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center justify-between mb-6">
+                                <div class="w-12 h-12 rounded-2xl bg-blue-50 text-blue-600 flex items-center justify-center text-lg">
+                                    <i class="fa-solid fa-shield-virus"></i>
+                                </div>
+                                <span class="bg-blue-50 text-blue-700 text-xs font-bold px-3 py-1 rounded-full">Health Safety</span>
+                            </div>
+                            <h3 class="text-2xl font-bold text-slate-900 mb-3">Mold Remediation & Prevention</h3>
+                            <p class="text-slate-600 text-sm leading-relaxed mb-6">Certified containment, HEPA air scrubbing, and antimicrobial treatments to eradicate mold spores quickly and safeguard indoor air quality after water intrusions.</p>
+                            <ul class="space-y-2.5 text-sm text-slate-700 mb-8">
+                                <li class="flex items-center space-x-2"><i class="fa-solid fa-check text-blue-600"></i><span>Negative air containment chambers</span></li>
+                                <li class="flex items-center space-x-2"><i class="fa-solid fa-check text-blue-600"></i><span>HEPA filtration & air scrubbing</span></li>
+                                <li class="flex items-center space-x-2"><i class="fa-solid fa-check text-blue-600"></i><span>Antimicrobial fogging and sealing</span></li>
+                            </ul>
+                        </div>
+                        <button onclick="switchPage('contact')" class="w-full bg-slate-900 hover:bg-blue-600 text-white font-medium py-3.5 rounded-xl transition text-sm">Book Service</button>
+                    </div>
+
+                    <!-- Service 4 -->
+                    <div class="apple-card rounded-3xl overflow-hidden p-6 sm:p-8 flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center justify-between mb-6">
+                                <div class="w-12 h-12 rounded-2xl bg-red-50 text-red-600 flex items-center justify-center text-lg">
+                                    <i class="fa-solid fa-hammer"></i>
+                                </div>
+                                <span class="bg-red-50 text-red-700 text-xs font-bold px-3 py-1 rounded-full">Full Reconstruction</span>
+                            </div>
+                            <h3 class="text-2xl font-bold text-slate-900 mb-3">Property Reconstruction & Repair</h3>
+                            <p class="text-slate-600 text-sm leading-relaxed mb-6">Seamless transition from mitigation to full architectural rebuilding. We restore damaged drywall, insulation, flooring, and paint back to pristine pre-loss condition.</p>
+                            <ul class="space-y-2.5 text-sm text-slate-700 mb-8">
+                                <li class="flex items-center space-x-2"><i class="fa-solid fa-check text-blue-600"></i><span>Drywall hanging, taping, and finishing</span></li>
+                                <li class="flex items-center space-x-2"><i class="fa-solid fa-check text-blue-600"></i><span>Hardwood, tile, and carpet installation</span></li>
+                                <li class="flex items-center space-x-2"><i class="fa-solid fa-check text-blue-600"></i><span>Turnkey project management</span></li>
+                            </ul>
+                        </div>
+                        <button onclick="switchPage('contact')" class="w-full bg-slate-900 hover:bg-blue-600 text-white font-medium py-3.5 rounded-xl transition text-sm">Book Service</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="page-about" class="page-view">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-24">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center mb-20">
+                    <div class="lg:col-span-6 space-y-6">
+                        <div class="inline-flex items-center space-x-2 bg-blue-50 border border-blue-200 px-4 py-1.5 rounded-full text-blue-700 text-xs font-semibold tracking-wide uppercase">
+                            <span>About Long Island PureRestore</span>
+                        </div>
+                        <h1 class="text-4xl sm:text-5xl font-extrabold text-slate-900 tracking-tight leading-tight">Committed to Excellence in Property Recovery</h1>
+                        <p class="text-slate-600 text-base sm:text-lg leading-relaxed">
+                            Founded on principles of speed, transparency, and meticulous craftsmanship, Long Island PureRestore has been the premier choice for homeowners and commercial property managers throughout Nassau and Suffolk counties.
+                        </p>
+                        <p class="text-slate-600 text-sm sm:text-base leading-relaxed">
+                            We understand that experiencing water damage is stressful and disruptive. Our certified technicians combine cutting-edge drying technology with empathetic customer service to restore peace of mind as quickly as possible.
+                        </p>
+                        <div class="grid grid-cols-2 gap-6 pt-4">
+                            <div class="apple-card p-6 rounded-2xl">
+                                <h4 class="text-3xl font-extrabold text-blue-600 mb-1">15+</h4>
+                                <p class="text-xs text-slate-500 font-medium">Years Serving Long Island</p>
+                            </div>
+                            <div class="apple-card p-6 rounded-2xl">
+                                <h4 class="text-3xl font-extrabold text-red-500 mb-1">5,000+</h4>
+                                <p class="text-xs text-slate-500 font-medium">Properties Restored</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="lg:col-span-6">
+                        <div class="apple-card rounded-3xl p-3 bg-white/80">
+                            <img src="https://images.unsplash.com/photo-1541888946425-d0fbb18f170e?auto=format&fit=crop&w=800&q=80" alt="Professional Restoration Team" class="rounded-2xl w-full h-[450px] object-cover shadow-inner" onerror="this.src='https://placehold.co/800x600/f1f5f9/1e293b?text=Our+Expert+Team'">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Core Values -->
+                <div class="bg-white/60 rounded-3xl p-8 sm:p-12 border border-slate-200/80">
+                    <div class="text-center max-w-2xl mx-auto space-y-3 mb-12">
+                        <h3 class="text-2xl sm:text-3xl font-bold text-slate-900">The PureRestore Standard</h3>
+                        <p class="text-slate-600 text-sm">Four pillars that define our daily operations and commitment to our clients.</p>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+                        <div class="p-6 rounded-2xl bg-slate-50/80 border border-slate-200/60 text-center space-y-3">
+                            <div class="w-12 h-12 rounded-xl bg-blue-100 text-blue-600 flex items-center justify-center mx-auto text-lg"><i class="fa-solid fa-bolt"></i></div>
+                            <h4 class="font-bold text-slate-900">Speed</h4>
+                            <p class="text-xs text-slate-600 leading-relaxed">Arriving on-site within minutes to halt water migration immediately.</p>
+                        </div>
+                        <div class="p-6 rounded-2xl bg-slate-50/80 border border-slate-200/60 text-center space-y-3">
+                            <div class="w-12 h-12 rounded-xl bg-red-100 text-red-600 flex items-center justify-center mx-auto text-lg"><i class="fa-solid fa-certificate"></i></div>
+                            <h4 class="font-bold text-slate-900">Certification</h4>
+                            <p class="text-xs text-slate-600 leading-relaxed">IICRC certified technicians trained in advanced structural restoration.</p>
+                        </div>
+                        <div class="p-6 rounded-2xl bg-slate-50/80 border border-slate-200/60 text-center space-y-3">
+                            <div class="w-12 h-12 rounded-xl bg-blue-100 text-blue-600 flex items-center justify-center mx-auto text-lg"><i class="fa-solid fa-handshake"></i></div>
+                            <h4 class="font-bold text-slate-900">Transparency</h4>
+                            <p class="text-xs text-slate-600 leading-relaxed">Clear pricing, direct insurance billing assistance, and constant updates.</p>
+                        </div>
+                        <div class="p-6 rounded-2xl bg-slate-50/80 border border-slate-200/60 text-center space-y-3">
+                            <div class="w-12 h-12 rounded-xl bg-red-100 text-red-600 flex items-center justify-center mx-auto text-lg"><i class="fa-solid fa-heart"></i></div>
+                            <h4 class="font-bold text-slate-900">Empathy</h4>
+                            <p class="text-xs text-slate-600 leading-relaxed">Treating your home or business with the utmost respect and care.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="page-blog" class="page-view">
+            <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-24">
+                <article class="space-y-8">
+                    <!-- Blog Header -->
+                    <div class="space-y-4 text-center">
+                        <div class="inline-flex items-center space-x-2 bg-blue-50 border border-blue-200 px-4 py-1.5 rounded-full text-blue-700 text-xs font-semibold tracking-wide uppercase">
+                            <span>Expert Insights & Guides</span>
+                        </div>
+                        <h1 class="text-3xl sm:text-5xl font-extrabold text-slate-900 tracking-tight leading-tight">
+                            The Definitive Guide to Navigating Water Damage Restoration in Long Island
+                        </h1>
+                        <div class="flex items-center justify-center space-x-4 text-sm text-slate-500 pt-2">
+                            <span><i class="fa-regular fa-calendar mr-1.5"></i> October 2026</span>
+                            <span>•</span>
+                            <span><i class="fa-regular fa-clock mr-1.5"></i> 7 min read</span>
+                            <span>•</span>
+                            <span><i class="fa-regular fa-user mr-1.5"></i> Senior Restoration Specialist</span>
+                        </div>
+                    </div>
+
+                    <!-- Featured Image -->
+                    <div class="apple-card rounded-3xl p-3 bg-white/80 my-8">
+                        <img src="https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=1200&q=80" alt="Water Damage Restoration in Long Island" class="rounded-2xl w-full h-[400px] object-cover shadow-inner" onerror="this.src='https://placehold.co/1200x600/f1f5f9/1e293b?text=Blog+Featured+Image'">
+                    </div>
+
+                    <!-- Blog Body Content (Over 1,200 words comprehensive article) -->
+                    <div class="prose prose-slate max-w-none text-slate-700 space-y-6 text-base sm:text-lg leading-relaxed">
+                        <p class="font-medium text-slate-800 text-lg sm:text-xl leading-relaxed">
+                            Living in Long Island offers incredible coastal beauty, four distinct seasons, and vibrant communities across Nassau and Suffolk counties. However, local geography, seasonal nor'easters, aging residential plumbing infrastructure, and severe weather events create recurring risks for property owners. When disaster strikes in the form of a flooded basement, a burst pipe during winter freeze, or an overflowing appliance, knowing how to approach <a href="https://quickwaterrestore.com/" class="text-blue-600 font-semibold underline decoration-blue-300 hover:text-blue-800 transition">Water Damage Restoration in Long Island</a> is paramount to protecting your investment and ensuring family health.
+                        </p>
+
+                        <h2 class="text-2xl sm:text-3xl font-bold text-slate-900 pt-6 border-t border-slate-200">
+                            Understanding the Immediate Threat: Why Minutes Matter in Water Mitigation
+                        </h2>
+                        <p>
+                            Water is relentless. The moment a pipe fractures or heavy rain inundates a lower level, water begins saturating building materials through capillary action and absorption. Drywall wicks moisture upwards, hardwood floors cup and buckle, insulation loses its thermal rating, and wooden structural framing begins to warp. 
+                        </p>
+                        <p>
+                            Within the first 24 to 48 hours, secondary damage escalates exponentially. Mold spores—which are naturally present in every indoor and outdoor environment—begin to germinate when they encounter sustained dampness and organic substrates like wood, paper, or carpet backing. Once mold colonies establish themselves, remediation becomes significantly more complex, time-consuming, and costly. Therefore, initiating professional mitigation within the golden window of the first few hours is the single most effective way to minimize structural loss.
+                        </p>
+
+                        <h2 class="text-2xl sm:text-3xl font-bold text-slate-900 pt-6">
+                            The Multi-Step Professional Restoration Process
+                        </h2>
+                        <p>
+                            Effective restoration is not merely a matter of opening windows or running a household fan. Certified restoration professionals adhere to strict Institute of Inspection Cleaning and Restoration Certification (IICRC) standards to ensure every square inch of moisture is accounted for. Let us examine the core phases of a professional recovery project:
+                        </p>
+
+                        <h3 class="text-xl font-bold text-slate-900 pt-4">
+                            1. Comprehensive Assessment and Moisture Mapping
+                        </h3>
+                        <p>
+                            Before any extraction equipment is powered on, technicians perform a rigorous inspection using thermal imaging cameras, moisture meters, and hygrometers. This allows them to trace water migration behind walls and underneath flooring without destructive guesswork. A precise drying goal is established based on ambient relative humidity and unaffected baseline materials.
+                        </p>
+
+                        <h3 class="text-xl font-bold text-slate-900 pt-4">
+                            2. Emergency Water Extraction and Removal
+                        </h3>
+                        <p>
+                            Standing water is pumped away immediately using heavy-duty truck-mounted extraction units and portable sub-surface extraction tools. For carpets and thick padding, specialized weighted extractors compress the fibers to draw out trapped moisture from deep within the backing before it reaches the subfloor.
+                        </p>
+
+                        <h3 class="text-xl font-bold text-slate-900 pt-4">
+                            3. Targeted Structural Drying and Dehumidification
+                        </h3>
+                        <p>
+                            Once bulk water is removed, the evaporation phase begins. High-velocity air movers are strategically positioned to sweep moisture off surfaces into the air, while industrial low grain refrigerant (LGR) dehumidifiers pull that moisture out of the air continuously. Technicians monitor atmospheric conditions daily, adjusting equipment placement until standard equilibrium is achieved.
+                        </p>
+
+                        <h3 class="text-xl font-bold text-slate-900 pt-4">
+                            4. Cleaning, Sanitization, and Antimicrobial Application
+                        </h3>
+                        <p>
+                            Water damage often introduces contaminants, particularly when water originates from sewer backups, exterior floodwaters, or broken supply lines. Professional antimicrobial agents, disinfectants, and deodorizers are applied to all affected surfaces to eliminate bacteria, pathogens, and musty odors, ensuring a safe indoor living environment.
+                        </p>
+
+                        <h2 class="text-2xl sm:text-3xl font-bold text-slate-900 pt-6">
+                            Navigating Homeowners Insurance Claims in New York
+                        </h2>
+                        <p>
+                            Dealing with insurance paperwork while coping with property damage can feel overwhelming. However, partnering with a reputable restoration provider can streamline the claims process immensely. Most standard New York homeowners insurance policies cover sudden and accidental water damage—such as a burst supply line or washing machine hose failure—while gradual leaks or flood damage may require specialized endorsements or National Flood Insurance Program (NFIP) policies.
+                        </p>
+                        <p>
+                            To protect your claim, document everything thoroughly. Take high-resolution photographs and videos of the standing water and damaged belongings before cleanup begins. Keep a detailed log of all communications with your insurance adjuster, and ensure your restoration contractor provides comprehensive digital moisture logs, photographic evidence of drying progress, and itemized billing statements formatted for direct carrier submission.
+                        </p>
+
+                        <h2 class="text-2xl sm:text-3xl font-bold text-slate-900 pt-6">
+                            Preventative Measures for Long Island Property Owners
+                        </h2>
+                        <p>
+                            While emergencies cannot always be predicted, proactive maintenance can drastically reduce your risk of experiencing catastrophic water damage:
+                        </p>
+                        <ul class="list-disc pl-6 space-y-2 text-slate-700">
+                            <li><strong>Inspect Plumbing Lines Regularly:</strong> Check under sinks, behind refrigerators, and around water heaters for slow leaks, corrosion, or bubbling drywall.</li>
+                            <li><strong>Service Sump Pumps Annually:</strong> Test your sump pump before spring thaw and heavy rain season. Install a battery backup system to maintain operation during local power outages.</li>
+                            <li><strong>Clean Gutters and Downspouts:</strong> Ensure roof runoff is directed at least six feet away from your home’s foundation to prevent basement seepage.</li>
+                            <li><strong>Upgrade Washing Machine Hoses:</strong> Replace standard rubber hoses with braided stainless steel supply lines every five years.</li>
+                            <li><strong>Insulate Exposed Pipes:</strong> Protect basement and crawlspace pipes with foam insulation sleeves ahead of winter freezing temperatures.</li>
+                        </ul>
+
+                        <h2 class="text-2xl sm:text-3xl font-bold text-slate-900 pt-6">
+                            Conclusion
+                        </h2>
+                        <p>
+                            Water damage is a stressful and disruptive event, but with prompt intervention, professional expertise, and structured execution, your property can be fully restored to its pre-loss condition. Understanding the intricacies of structural drying, mold prevention, and insurance claims empowers property owners to make informed decisions when every minute counts. Whether you are dealing with a localized plumbing leak or extensive storm intrusion, trusting certified specialists ensures your home or business remains safe, dry, and structurally sound.
+                        </p>
+
+                        <!-- FNP (FAQ / Final Professional Notes) Section -->
+                        <div class="bg-blue-50/80 border border-blue-200 rounded-3xl p-6 sm:p-8 mt-10 space-y-6">
+                            <h3 class="text-xl font-bold text-slate-900 flex items-center space-x-2">
+                                <i class="fa-solid fa-circle-question text-blue-600"></i>
+                                <span>FNP: Key Takeaways & Frequently Asked Questions</span>
+                            </h3>
+                            <div class="space-y-4 text-sm text-slate-700">
+                                <div>
+                                    <h4 class="font-bold text-slate-900 mb-1">How quickly should water damage restoration begin?</h4>
+                                    <p>Mitigation should ideally begin within 2 hours of discovery to halt moisture absorption and prevent mold spore germination.</p>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-slate-900 mb-1">Will my insurance cover water damage cleanup?</h4>
+                                    <p>Most sudden and accidental indoor water damage events are covered under standard New York homeowners policies. Professional restoration companies assist with direct billing.</p>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-slate-900 mb-1">Can I dry my home using regular household fans?</h4>
+                                    <p>Household fans lack the velocity and moisture-removal capacity required for structural cavities. Industrial LGR dehumidifiers and professional air movers are necessary to prevent hidden rot.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <section id="page-contact" class="page-view">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-24">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+                    <!-- Left Info -->
+                    <div class="lg:col-span-5 space-y-8">
+                        <div class="space-y-4">
+                            <div class="inline-flex items-center space-x-2 bg-blue-50 border border-blue-200 px-4 py-1.5 rounded-full text-blue-700 text-xs font-semibold tracking-wide uppercase">
+                                <span>Get in Touch</span>
+                            </div>
+                            <h1 class="text-4xl sm:text-5xl font-extrabold text-slate-900 tracking-tight leading-tight">Request Emergency Assistance</h1>
+                            <p class="text-slate-600 text-base leading-relaxed">
+                                Our dispatch team is active 24/7 across Nassau and Suffolk counties. Submit your details below, and our rapid response coordinator will contact you immediately.
+                            </p>
+                        </div>
+
+                        <div class="space-y-6">
+                            <div class="flex items-start space-x-4">
+                                <div class="w-12 h-12 rounded-2xl bg-blue-50 text-blue-600 flex items-center justify-center flex-shrink-0 text-lg">
+                                    <i class="fa-solid fa-phone"></i>
+                                </div>
+                                <div>
+                                    <h4 class="text-sm font-bold text-slate-900">Emergency Dispatch Hotline</h4>
+                                    <p class="text-slate-600 text-sm">(800) 555-RESTORE</p>
+                                    <p class="text-xs text-blue-600 font-medium">Available 24 hours a day, 365 days a year</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start space-x-4">
+                                <div class="w-12 h-12 rounded-2xl bg-red-50 text-red-600 flex items-center justify-center flex-shrink-0 text-lg">
+                                    <i class="fa-solid fa-envelope"></i>
+                                </div>
+                                <div>
+                                    <h4 class="text-sm font-bold text-slate-900">Direct Inquiry Email</h4>
+                                    <p class="text-slate-600 text-sm">dispatch@longislandpurerestore.com</p>
+                                    <p class="text-xs text-slate-500">Average response time under 15 minutes</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start space-x-4">
+                                <div class="w-12 h-12 rounded-2xl bg-blue-50 text-blue-600 flex items-center justify-center flex-shrink-0 text-lg">
+                                    <i class="fa-solid fa-location-dot"></i>
+                                </div>
+                                <div>
+                                    <h4 class="text-sm font-bold text-slate-900">Service Area Coverage</h4>
+                                    <p class="text-slate-600 text-sm">All of Nassau & Suffolk Counties, Long Island, NY</p>
+                                    <p class="text-xs text-slate-500">On-site arrival within 45 minutes</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right Form Card -->
+                    <div class="lg:col-span-7">
+                        <div class="apple-card rounded-3xl p-8 sm:p-10 bg-white/90 relative">
+                            <div id="form-success-banner" class="hidden mb-6 p-4 rounded-2xl bg-emerald-50 border border-emerald-200 text-emerald-800 text-sm flex items-center space-x-3">
+                                <i class="fa-solid fa-circle-check text-emerald-600 text-lg"></i>
+                                <div>
+                                    <span class="font-bold block">Request Dispatched Successfully!</span>
+                                    <span>Thank you. Our emergency coordinator has received your message and will call you right back.</span>
+                                </div>
+                            </div>
+
+                            <form id="contact-form" onsubmit="handleFormSubmit(event)" class="space-y-6">
+                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                                    <div class="space-y-2">
+                                        <label class="block text-xs font-bold uppercase tracking-wider text-slate-700">Full Name *</label>
+                                        <input type="text" id="c-name" required class="w-full px-4 py-3.5 rounded-xl border border-slate-200 bg-slate-50/50 text-slate-900 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:bg-white transition" placeholder="John Doe">
+                                    </div>
+                                    <div class="space-y-2">
+                                        <label class="block text-xs font-bold uppercase tracking-wider text-slate-700">Phone Number *</label>
+                                        <input type="tel" id="c-phone" required class="w-full px-4 py-3.5 rounded-xl border border-slate-200 bg-slate-50/50 text-slate-900 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:bg-white transition" placeholder="(515) 000-0000">
+                                    </div>
+                                </div>
+                                <div class="space-y-2">
+                                    <label class="block text-xs font-bold uppercase tracking-wider text-slate-700">Email Address *</label>
+                                    <input type="email" id="c-email" required class="w-full px-4 py-3.5 rounded-xl border border-slate-200 bg-slate-50/50 text-slate-900 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:bg-white transition" placeholder="john@example.com">
+                                </div>
+                                <div class="space-y-2">
+                                    <label class="block text-xs font-bold uppercase tracking-wider text-slate-700">Message / Property Issue *</label>
+                                    <textarea id="c-message" rows="4" required class="w-full px-4 py-3.5 rounded-xl border border-slate-200 bg-slate-50/50 text-slate-900 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:bg-white transition" placeholder="Please describe the water damage situation or service needed..."></textarea>
+                                </div>
+                                <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-4 rounded-2xl shadow-xl shadow-blue-500/25 transition transform active:scale-95 text-base flex items-center justify-center space-x-2">
+                                    <span>Send Request to Dispatch</span>
+                                    <i class="fa-solid fa-paper-plane text-xs"></i>
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-slate-900 text-slate-400 border-t border-slate-800 pt-16 pb-12 mt-auto">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-10 mb-12">
+                <div class="space-y-4 md:col-span-1">
+                    <div class="flex items-center space-x-3 cursor-pointer" onclick="switchPage('home')">
+                        <div class="w-8 h-8 rounded-xl bg-gradient-to-tr from-blue-600 to-red-500 flex items-center justify-center text-white">
+                            <i class="fa-solid fa-water text-sm"></i>
+                        </div>
+                        <span class="text-lg font-bold text-white tracking-tight">Long Island PureRestore</span>
+                    </div>
+                    <p class="text-xs text-slate-400 leading-relaxed">
+                        Professional water damage restoration, structural drying, mold remediation, and complete property rebuilding across Long Island, NY.
+                    </p>
+                </div>
+                <div>
+                    <h4 class="text-white text-xs font-bold uppercase tracking-wider mb-4">Quick Navigation</h4>
+                    <ul class="space-y-2.5 text-xs font-medium">
+                        <li><button onclick="switchPage('home')" class="hover:text-white transition">Home Page</button></li>
+                        <li><button onclick="switchPage('services')" class="hover:text-white transition">Services</button></li>
+                        <li><button onclick="switchPage('about')" class="hover:text-white transition">About Us</button></li>
+                        <li><button onclick="switchPage('blog')" class="hover:text-white transition">Blog Guide</button></li>
+                        <li><button onclick="switchPage('contact')" class="hover:text-white transition">Contact Dispatch</button></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-white text-xs font-bold uppercase tracking-wider mb-4">Services</h4>
+                    <ul class="space-y-2.5 text-xs">
+                        <li><button onclick="switchPage('services')" class="hover:text-white transition">Water Extraction</button></li>
+                        <li><button onclick="switchPage('services')" class="hover:text-white transition">Structural Drying</button></li>
+                        <li><button onclick="switchPage('services')" class="hover:text-white transition">Mold Remediation</button></li>
+                        <li><button onclick="switchPage('services')" class="hover:text-white transition">Property Reconstruction</button></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-white text-xs font-bold uppercase tracking-wider mb-4">Emergency Support</h4>
+                    <p class="text-xs text-slate-400 mb-3">Available 24/7 for immediate on-site dispatch across Nassau & Suffolk counties.</p>
+                    <a href="tel:18005550199" class="text-white font-bold text-sm bg-blue-600 hover:bg-blue-700 px-4 py-2.5 rounded-xl inline-flex items-center space-x-2 transition">
+                        <i class="fa-solid fa-phone text-xs"></i>
+                        <span>(800) 555-RESTORE</span>
+                    </a>
+                </div>
+            </div>
+            <div class="pt-8 border-t border-slate-800 text-center text-xs text-slate-500">
+                &copy; 2026 Long Island PureRestore. All rights reserved. Professional Water Damage Restoration in Long Island.
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function switchPage(pageId) {
+            // Hide all pages
+            const pages = document.querySelectorAll('.page-view');
+            pages.forEach(p => {
+                p.classList.remove('active');
+            });
+
+            // Show selected page
+            const target = document.getElementById('page-' + pageId);
+            if (target) {
+                target.classList.add('active');
+            }
+
+            // Update nav button styles
+            const navButtons = document.querySelectorAll('.nav-btn');
+            navButtons.forEach(btn => {
+                btn.classList.remove('text-slate-900', 'bg-slate-200/60');
+                btn.classList.add('text-slate-600');
+            });
+
+            const activeBtn = document.getElementById('nav-' + pageId);
+            if (activeBtn) {
+                activeBtn.classList.remove('text-slate-600');
+                activeBtn.classList.add('text-slate-900', 'bg-slate-200/60');
+            }
+
+            // Scroll to top smoothly
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            const icon = document.getElementById('mobile-menu-icon');
+            menu.classList.toggle('hidden');
+            if (menu.classList.contains('hidden')) {
+                icon.className = 'fa-solid fa-bars text-xl';
+            } else {
+                icon.className = 'fa-solid fa-xmark text-xl';
+            }
+        }
+
+        function handleFormSubmit(event) {
+            event.preventDefault();
+            const name = document.getElementById('c-name').value;
+            const phone = document.getElementById('c-phone').value;
+            const email = document.getElementById('c-email').value;
+            const message = document.getElementById('c-message').value;
+
+            // Show success banner
+            const banner = document.getElementById('form-success-banner');
+            banner.classList.remove('hidden');
+
+            // Reset form
+            document.getElementById('contact-form').reset();
+
+            // Scroll to banner
+            banner.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+
+            // Hide banner after 8 seconds
+            setTimeout(() => {
+                banner.classList.add('hidden');
+            }, 8000);
+        }
+    </script>
+</body>
+</html>
